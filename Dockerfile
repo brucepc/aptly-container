@@ -7,6 +7,8 @@ RUN go get github.com/smira/aptly \
     && git checkout tags/v1.2.0 \
     && go get -d -v ./... \
     && go install -v ./...
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+x /entrypoint.sh
 
-ENTRYPOINT ["aptly"]
+ENTRYPOINT ["/entrypoint.sh"]
 
