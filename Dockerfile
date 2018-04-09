@@ -8,7 +8,12 @@ RUN go get github.com/smira/aptly \
     && go get -d -v ./... \
     && go install -v ./...
 COPY entrypoint.sh /entrypoint.sh
-RUN chmod a+x /entrypoint.sh
+
+WORKDIR /aptly
+RUN chmod a+x /entrypoint.sh \
+    && adduser -D -G root -h /aptly aptly
+
+USER aptly
 
 ENTRYPOINT ["/entrypoint.sh"]
 
